@@ -6,12 +6,13 @@
 
 <style>
 
-/* ===== FIX FULL MÀN HÌNH ===== */
+/* ===== FIX FULL MÀN HÌNH (KHÔNG BỊ CẮT) ===== */
 body {
     margin: 0;
     padding: 0;
-    width: 100%;
     min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
 
     background: radial-gradient(circle at top, #020617, #000814);
     color: white;
@@ -47,17 +48,16 @@ input {
     border: none;
 }
 
-/* ===== LAYOUT FULL ===== */
+/* ===== LAYOUT ===== */
 .wrapper {
     display: flex;
     width: 100%;
-    height: calc(100vh - 140px);
+    min-height: calc(100vh - 140px);
 }
 
 /* LEFT */
 .left {
     width: 100%;
-    height: 100%;
     overflow-y: auto;
     transition: 0.3s;
 }
@@ -69,7 +69,6 @@ input {
 /* RIGHT */
 .right {
     width: 0;
-    height: 100%;
     overflow: hidden;
     transition: 0.3s;
 }
@@ -77,6 +76,7 @@ input {
 .right.show {
     width: 35%;
     padding: 20px;
+    overflow-y: auto;
 }
 
 /* ===== PROFILE ===== */
@@ -144,7 +144,7 @@ input {
 table {
     width: 100%;
     border-collapse: collapse;
-    table-layout: auto;
+    table-layout: fixed;
 }
 
 thead {
