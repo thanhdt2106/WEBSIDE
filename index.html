@@ -6,33 +6,31 @@
 
 <style>
 
-/* ===== FULL MÀN HÌNH ===== */
+/* ===== FULL SCREEN ===== */
 body {
     margin: 0;
     padding: 0;
-    min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-
+    width: 100vw;
+    height: 100vh;
     background: radial-gradient(circle at top, #020617, #000814);
     color: white;
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* ===== HEADER (ĐÃ THU GỌN) ===== */
+/* HEADER */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 20px 30px 10px 30px;
+    padding: 20px 30px;
 }
 
-.title { font-size: 34px; font-weight: bold; }
+.title { font-size: 32px; font-weight: bold; }
 .title span { color: #22d3ee; }
-.subtitle { color: #94a3b8; margin-top: 6px; }
+.subtitle { color: #94a3b8; }
 
-/* ===== SEARCH ===== */
-.search-box { padding: 0 30px; }
+/* SEARCH */
+.search-box { padding: 0 30px; margin-bottom: 10px; }
 
 input {
     padding: 10px;
@@ -41,95 +39,25 @@ input {
     border: none;
 }
 
-/* ===== LAYOUT ===== */
+/* LAYOUT */
 .wrapper {
     display: flex;
-    width: 100%;
-    min-height: calc(100vh - 100px);
+    width: 100vw;
+    height: calc(100vh - 100px);
 }
 
-/* LEFT */
 .left {
     width: 100%;
     overflow-y: auto;
     transition: 0.3s;
 }
 
-.left.shrink {
-    width: 65%;
-}
-
-/* RIGHT */
-.right {
-    width: 0;
-    overflow: hidden;
-    transition: 0.3s;
-}
-
-.right.show {
-    width: 35%;
-    padding: 20px;
-    overflow-y: auto;
-}
-
-/* ===== PROFILE ===== */
-.profile {
-    background: linear-gradient(145deg, #020617, #0f172a);
-    border: 1px solid rgba(34,211,238,0.3);
-    box-shadow: 0 0 20px rgba(34,211,238,0.15);
-    padding: 20px;
-    border-radius: 16px;
-}
-
-.profile-header {
-    text-align: center;
-    margin-bottom: 20px;
-}
-
-.profile-avatar {
-    width: 80px;
-    height: 80px;
-    border-radius: 50%;
-    border: 3px solid #22d3ee;
-}
-
-.profile-level {
-    background: #f59e0b;
-    padding: 3px 10px;
-    border-radius: 6px;
-    font-size: 12px;
-    margin-top: 5px;
-    display: inline-block;
-}
-
-.profile-row {
-    display: flex;
-    justify-content: space-between;
-    padding: 14px 16px;
-    margin: 6px 0;
-    border-radius: 10px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.05);
-}
-
-/* COLORS */
-.kill { color: #facc15; font-weight: bold; }
-.power { color: #22d3ee; font-weight: bold; }
-.death { color: #ef4444; font-weight: bold; }
-
-.t1 { color: #ef4444; }
-.t2 { color: #a855f7; }
-.t3 { color: #3b82f6; }
-.t4 { color: #22c55e; }
-.t5 { color: #f59e0b; }
-
-/* ===== TABLE ===== */
+/* TABLE */
 .container {
-    margin: 10px 20px 20px 20px;
+    margin: 20px;
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid rgba(34,211,238,0.2);
-    box-shadow: 0 0 30px rgba(34,211,238,0.08);
 }
 
 table {
@@ -146,11 +74,10 @@ th {
     padding: 16px;
     font-size: 13px;
     color: #94a3b8;
-    text-align: center;
 }
 
 td {
-    padding: 18px 10px;
+    padding: 16px;
     text-align: center;
 }
 
@@ -158,29 +85,11 @@ tr {
     border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
-tr:hover {
-    background: rgba(255,255,255,0.04);
-}
-
-/* RANK */
-.rank-box {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: bold;
-}
-
-.gold { background: linear-gradient(145deg, #facc15, #b45309); }
-
 /* PLAYER */
 .player {
     display: flex;
     align-items: center;
     gap: 10px;
-    justify-content: flex-start;
 }
 
 .avatar {
@@ -190,30 +99,23 @@ tr:hover {
     border: 2px solid #22d3ee;
 }
 
-.level {
-    background: #f59e0b;
-    padding: 2px 8px;
-    border-radius: 6px;
+/* COLORS */
+.kill { color: #facc15; }
+.power { color: #22d3ee; }
+.death { color: #ef4444; }
+
+.t1 { color: #ef4444; }
+.t2 { color: #a855f7; }
+.t3 { color: #3b82f6; }
+.t4 { color: #22c55e; }
+.t5 { color: #f59e0b; }
+
+/* DIFF */
+.diff {
     font-size: 11px;
-}
-
-/* ALLIANCE */
-.badge {
-    padding: 6px 10px;
-    border-radius: 8px;
-    font-size: 12px;
-    font-weight: bold;
-}
-
-.red { background: #7f1d1d; color: #f87171; }
-
-/* SCROLL */
-::-webkit-scrollbar {
-    width: 6px;
-}
-::-webkit-scrollbar-thumb {
-    background: #22d3ee;
-    border-radius: 10px;
+    display: block;
+    margin-top: 4px;
+    color: #22c55e;
 }
 
 </style>
@@ -224,112 +126,145 @@ tr:hover {
 <div class="header">
     <div>
         <div class="title">🏆 BẢNG XẾP HẠNG <span>TỔNG HỢP</span></div>
-        <div class="subtitle">Thống kê sức mạnh và thành tích chiến binh</div>
+        <div class="subtitle">So sánh dữ liệu người chơi</div>
     </div>
 </div>
 
 <div class="search-box">
-<input type="text" id="search" placeholder="🔍 Tìm player..." onkeyup="searchPlayer()">
+<input type="text" id="search" placeholder="🔍 Tìm player...">
 </div>
 
 <div class="wrapper">
 
-<div id="left" class="left">
+<div class="left">
 
 <div class="container">
 <table>
 <thead>
 <tr>
-<th>👑</th>
-<th>👤 TÊN</th>
-<th>🆔 ID</th>
-<th>🏰 LIÊN MINH</th>
-<th>⚔ TỔNG</th>
-<th>⚡ SỨC MẠNH</th>
+<th>#</th>
+<th>Tên</th>
+<th>ID</th>
+<th>Liên minh</th>
+<th>Kill</th>
+<th>Power</th>
 <th>T1</th>
 <th>T2</th>
 <th>T3</th>
 <th>T4</th>
 <th>T5</th>
-<th>💀</th>
+<th>Death</th>
 </tr>
 </thead>
 
-<tbody>
-
-<tr>
-<td><div class="rank-box gold">1</div></td>
-<td>
-<div class="player">
-<img src="https://api.dicebear.com/7.x/bottts/svg?seed=VICTORIUS" class="avatar">
-<div>VICTORIUS<br><span class="level">Lv.98</span></div>
-</div>
-</td>
-<td>ID-0001</td>
-<td><span class="badge red">LEGENDS</span></td>
-<td class="kill">125,430,982</td>
-<td class="power">129,567,489</td>
-<td class="t1">24,500</td>
-<td class="t2">23,100</td>
-<td class="t3">22,800</td>
-<td class="t4">21,900</td>
-<td class="t5">17,600</td>
-<td class="death">12,450</td>
-</tr>
-
+<tbody id="table-body">
 </tbody>
+
 </table>
 </div>
 
-</div>
-
-<div id="right" class="right">
-<div id="profile" class="profile"></div>
 </div>
 
 </div>
 
 <script>
 
-function searchPlayer() {
-    let input = document.getElementById("search").value.toLowerCase();
-    let right = document.getElementById("right");
-    let left = document.getElementById("left");
-    let profile = document.getElementById("profile");
+// ===== LINK GOOGLE SHEET =====
+const OLD = "https://docs.google.com/spreadsheets/d/1MJQSE3siwFWmQNdJmbbJ6RsilvcoxWTu-r6h-UdHugE/gviz/tq?tqx=out:json&gid=731741617";
+const NEW = "https://docs.google.com/spreadsheets/d/1MJQSE3siwFWmQNdJmbbJ6RsilvcoxWTu-r6h-UdHugE/gviz/tq?tqx=out:json&gid=371969335";
 
-    if (input === "victorius") {
-
-        profile.innerHTML = `
-        <div class="profile-header">
-            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=VICTORIUS" class="profile-avatar">
-            <h2>VICTORIUS</h2>
-            <div class="profile-level">Lv.98</div>
-            <h3>🏆 Rank #1</h3>
-        </div>
-
-        <div class="profile-row"><span>🆔 ID</span><span>ID-0001</span></div>
-        <div class="profile-row"><span>🏰 Liên minh</span><span>LEGENDS</span></div>
-
-        <div class="profile-row kill"><span>⚔ Tổng</span><span>125,430,982</span></div>
-        <div class="profile-row power"><span>⚡ Sức mạnh</span><span>129,567,489</span></div>
-
-        <div class="profile-row t1"><span>T1</span><span>24,500</span></div>
-        <div class="profile-row t2"><span>T2</span><span>23,100</span></div>
-        <div class="profile-row t3"><span>T3</span><span>22,800</span></div>
-        <div class="profile-row t4"><span>T4</span><span>21,900</span></div>
-        <div class="profile-row t5"><span>T5</span><span>17,600</span></div>
-
-        <div class="profile-row death"><span>💀 Death</span><span>12,450</span></div>
-        `;
-
-        right.classList.add("show");
-        left.classList.add("shrink");
-
-    } else {
-        right.classList.remove("show");
-        left.classList.remove("shrink");
-    }
+// ===== LẤY DATA =====
+async function getData(url){
+    let res = await fetch(url);
+    let text = await res.text();
+    let json = JSON.parse(text.substring(47).slice(0,-2));
+    return json.table.rows;
 }
+
+// ===== LOAD + SO SÁNH =====
+async function load(){
+
+    let oldData = await getData(OLD);
+    let newData = await getData(NEW);
+
+    let oldMap = {};
+
+    // map dữ liệu cũ theo ID
+    oldData.forEach(r=>{
+        let id = r.c[1]?.v;
+        oldMap[id] = r.c;
+    });
+
+    let tbody = document.getElementById("table-body");
+    tbody.innerHTML = "";
+
+    newData.forEach((r,i)=>{
+
+        let c = r.c;
+
+        let name = c[0]?.v || "";
+        let id = c[1]?.v || "";
+        let alliance = c[2]?.v || "";
+
+        let kill = Number(c[3]?.v || 0);
+        let power = Number(c[4]?.v || 0);
+
+        let t1 = c[5]?.v || "";
+        let t2 = c[6]?.v || "";
+        let t3 = c[7]?.v || "";
+        let t4 = c[8]?.v || "";
+        let t5 = c[9]?.v || "";
+        let death = c[10]?.v || "";
+
+        let old = oldMap[id];
+
+        let kill_old = old ? Number(old[3]?.v || 0) : 0;
+        let power_old = old ? Number(old[4]?.v || 0) : 0;
+
+        let kill_diff = kill - kill_old;
+        let power_diff = power - power_old;
+
+        tbody.innerHTML += `
+        <tr>
+            <td>${i+1}</td>
+
+            <td>
+                <div class="player">
+                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=${name}" class="avatar">
+                    ${name}
+                </div>
+            </td>
+
+            <td>${id}</td>
+            <td>${alliance}</td>
+
+            <td class="kill">
+                ${kill.toLocaleString()}
+                <span class="diff">+${kill_diff.toLocaleString()}</span>
+            </td>
+
+            <td class="power">
+                ${power.toLocaleString()}
+                <span class="diff">+${power_diff.toLocaleString()}</span>
+            </td>
+
+            <td class="t1">${t1}</td>
+            <td class="t2">${t2}</td>
+            <td class="t3">${t3}</td>
+            <td class="t4">${t4}</td>
+            <td class="t5">${t5}</td>
+
+            <td class="death">${death}</td>
+        </tr>
+        `;
+    });
+}
+
+// load lần đầu
+load();
+
+// auto update 5s
+setInterval(load, 5000);
 
 </script>
 
