@@ -1,21 +1,15 @@
 <!DOCTYPE html>
-<html lang="vi">
+<html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Dashboard Game</title>
+<title>Leaderboard</title>
 
 <style>
 
-/* ===== RESET FULL ===== */
-* {
+/* ===== FIX FULL MÀN HÌNH ===== */
+body {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-}
-
-body {
     width: 100vw;
     height: 100vh;
     overflow: hidden;
@@ -33,26 +27,19 @@ body {
     padding: 30px;
 }
 
-.title {
-    font-size: 32px;
-    font-weight: bold;
-}
-
-.title span {
-    color: #22d3ee;
-}
+.title { font-size: 34px; font-weight: bold; }
+.title span { color: #22d3ee; }
+.subtitle { color: #94a3b8; margin-top: 6px; }
 
 .time-box {
     border: 1px solid #22d3ee;
-    padding: 10px 20px;
-    border-radius: 10px;
+    padding: 12px 20px;
+    border-radius: 12px;
     color: #67e8f9;
 }
 
 /* ===== SEARCH ===== */
-.search-box {
-    padding: 0 30px;
-}
+.search-box { padding: 0 30px; }
 
 input {
     padding: 10px;
@@ -61,15 +48,17 @@ input {
     border: none;
 }
 
-/* ===== LAYOUT ===== */
+/* ===== LAYOUT FULL ===== */
 .wrapper {
     display: flex;
-    height: calc(100vh - 120px);
+    width: 100vw;
+    height: calc(100vh - 140px);
 }
 
 /* LEFT */
 .left {
     width: 100%;
+    height: 100%;
     overflow-y: auto;
     transition: 0.3s;
 }
@@ -81,85 +70,163 @@ input {
 /* RIGHT */
 .right {
     width: 0;
+    height: 100%;
     overflow: hidden;
     transition: 0.3s;
 }
 
 .right.show {
     width: 35%;
+    height: 100%;
     padding: 20px;
 }
+
+/* ===== PROFILE ===== */
+.profile {
+    background: linear-gradient(145deg, #020617, #0f172a);
+    border: 1px solid rgba(34,211,238,0.3);
+    box-shadow: 0 0 20px rgba(34,211,238,0.15);
+    padding: 20px;
+    border-radius: 16px;
+}
+
+/* HEADER PROFILE */
+.profile-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.profile-avatar {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    border: 3px solid #22d3ee;
+}
+
+.profile-level {
+    background: #f59e0b;
+    padding: 3px 10px;
+    border-radius: 6px;
+    font-size: 12px;
+    margin-top: 5px;
+    display: inline-block;
+}
+
+/* BOX INFO */
+.profile-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px 16px;
+    margin: 6px 0;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.05);
+}
+
+/* COLORS */
+.kill { color: #facc15; font-weight: bold; }
+.power { color: #22d3ee; font-weight: bold; }
+.death { color: #ef4444; font-weight: bold; }
+
+.t1 { color: #ef4444; }
+.t2 { color: #a855f7; }
+.t3 { color: #3b82f6; }
+.t4 { color: #22c55e; }
+.t5 { color: #f59e0b; }
 
 /* ===== TABLE ===== */
 .container {
     margin: 20px;
+    height: calc(100% - 40px);
     border-radius: 16px;
     overflow: hidden;
     border: 1px solid rgba(34,211,238,0.2);
+    box-shadow: 0 0 30px rgba(34,211,238,0.08);
 }
 
 table {
     width: 100%;
     border-collapse: collapse;
-}
-
-th, td {
-    padding: 16px;
-    text-align: center;
+    table-layout: fixed;
 }
 
 thead {
-    background: #0f172a;
+    background: linear-gradient(90deg, #020617, #0f172a);
+}
+
+th {
+    padding: 16px;
+    font-size: 13px;
+    color: #94a3b8;
+    text-align: center;
+}
+
+td {
+    padding: 18px 10px;
+    text-align: center;
+}
+
+tr {
+    border-bottom: 1px solid rgba(255,255,255,0.05);
 }
 
 tr:hover {
-    background: rgba(255,255,255,0.05);
+    background: rgba(255,255,255,0.04);
 }
+
+/* RANK */
+.rank-box {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+.gold { background: linear-gradient(145deg, #facc15, #b45309); }
 
 /* PLAYER */
 .player {
     display: flex;
     align-items: center;
     gap: 10px;
+    justify-content: flex-start;
 }
 
 .avatar {
-    width: 45px;
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
     border: 2px solid #22d3ee;
 }
 
-/* PROFILE */
-.profile {
-    background: #0f172a;
-    padding: 20px;
-    border-radius: 16px;
-    height: 100%;
+.level {
+    background: #f59e0b;
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 11px;
 }
 
-.profile-header {
-    text-align: center;
+/* ALLIANCE */
+.badge {
+    padding: 6px 10px;
+    border-radius: 8px;
+    font-size: 12px;
+    font-weight: bold;
 }
 
-.profile-avatar {
-    width: 80px;
-    border-radius: 50%;
-    border: 3px solid #22d3ee;
-}
+.red { background: #7f1d1d; color: #f87171; }
 
-.profile-row {
-    display: flex;
-    justify-content: space-between;
-    margin: 10px 0;
-    padding: 12px;
+/* SCROLLBAR */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background: #22d3ee;
     border-radius: 10px;
-    background: rgba(255,255,255,0.05);
 }
-
-/* COLORS */
-.kill { color: gold; }
-.power { color: cyan; }
-.death { color: red; }
 
 </style>
 </head>
@@ -167,8 +234,11 @@ tr:hover {
 <body>
 
 <div class="header">
-    <div class="title">🏆 BẢNG XẾP HẠNG <span>TỔNG HỢP</span></div>
-    <div class="time-box">24/05/2025</div>
+    <div>
+        <div class="title">🏆 BẢNG XẾP HẠNG <span>TỔNG HỢP</span></div>
+        <div class="subtitle">Thống kê sức mạnh và thành tích chiến binh</div>
+    </div>
+    <div class="time-box">⏱ 24/05/2025 14:35:22</div>
 </div>
 
 <div class="search-box">
@@ -177,36 +247,47 @@ tr:hover {
 
 <div class="wrapper">
 
-<!-- LEFT -->
 <div id="left" class="left">
 
 <div class="container">
 <table>
 <thead>
 <tr>
-<th>#</th>
-<th>Tên</th>
-<th>ID</th>
-<th>Liên minh</th>
-<th>Kill</th>
-<th>Power</th>
-<th>Death</th>
+<th>👑</th>
+<th>👤 TÊN</th>
+<th>🆔 ID</th>
+<th>🏰 LIÊN MINH</th>
+<th>⚔ TỔNG</th>
+<th>⚡ SỨC MẠNH</th>
+<th>T1</th>
+<th>T2</th>
+<th>T3</th>
+<th>T4</th>
+<th>T5</th>
+<th>💀</th>
 </tr>
 </thead>
 
 <tbody>
 
 <tr>
-<td>1</td>
-<td class="player">
+<td><div class="rank-box gold">1</div></td>
+<td>
+<div class="player">
 <img src="https://api.dicebear.com/7.x/bottts/svg?seed=VICTORIUS" class="avatar">
-VICTORIUS
+<div>VICTORIUS<br><span class="level">Lv.98</span></div>
+</div>
 </td>
 <td>ID-0001</td>
-<td>LEGENDS</td>
-<td class="kill">125M</td>
-<td class="power">129M</td>
-<td class="death">12K</td>
+<td><span class="badge red">LEGENDS</span></td>
+<td class="kill">125,430,982</td>
+<td class="power">129,567,489</td>
+<td class="t1">24,500</td>
+<td class="t2">23,100</td>
+<td class="t3">22,800</td>
+<td class="t4">21,900</td>
+<td class="t5">17,600</td>
+<td class="death">12,450</td>
 </tr>
 
 </tbody>
@@ -215,7 +296,6 @@ VICTORIUS
 
 </div>
 
-<!-- RIGHT -->
 <div id="right" class="right">
 <div id="profile" class="profile"></div>
 </div>
@@ -236,14 +316,23 @@ function searchPlayer() {
         <div class="profile-header">
             <img src="https://api.dicebear.com/7.x/bottts/svg?seed=VICTORIUS" class="profile-avatar">
             <h2>VICTORIUS</h2>
-            <p>🏆 Rank #1</p>
+            <div class="profile-level">Lv.98</div>
+            <h3>🏆 Rank #1</h3>
         </div>
 
-        <div class="profile-row"><span>ID</span><span>ID-0001</span></div>
-        <div class="profile-row"><span>Alliance</span><span>LEGENDS</span></div>
-        <div class="profile-row kill"><span>Kill</span><span>125M</span></div>
-        <div class="profile-row power"><span>Power</span><span>129M</span></div>
-        <div class="profile-row death"><span>Death</span><span>12K</span></div>
+        <div class="profile-row"><span>🆔 ID</span><span>ID-0001</span></div>
+        <div class="profile-row"><span>🏰 Liên minh</span><span>LEGENDS</span></div>
+
+        <div class="profile-row kill"><span>⚔ Tổng</span><span>125,430,982</span></div>
+        <div class="profile-row power"><span>⚡ Sức mạnh</span><span>129,567,489</span></div>
+
+        <div class="profile-row t1"><span>T1</span><span>24,500</span></div>
+        <div class="profile-row t2"><span>T2</span><span>23,100</span></div>
+        <div class="profile-row t3"><span>T3</span><span>22,800</span></div>
+        <div class="profile-row t4"><span>T4</span><span>21,900</span></div>
+        <div class="profile-row t5"><span>T5</span><span>17,600</span></div>
+
+        <div class="profile-row death"><span>💀 Death</span><span>12,450</span></div>
         `;
 
         right.classList.add("show");
