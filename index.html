@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Bảng Xếp Hạng</title>
+
+<style>
+body {
+    margin: 0;
+    background: radial-gradient(circle at top, #020617, #000814);
+    color: white;
+    font-family: 'Segoe UI', sans-serif;
+}
+
+/* HEADER */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 30px;
+}
+
+.title { font-size: 34px; font-weight: bold; }
+.title span { color: #22d3ee; }
+
+.time-box {
+    border: 1px solid #22d3ee;
+    padding: 10px 16px;
+    border-radius: 12px;
+    color: #67e8f9;
+}
+
+/* SEARCH */
+.search-box { padding: 0 30px; margin-bottom: 10px; }
+
+input {
+    padding: 10px;
+    width: 280px;
+    border-radius: 8px;
+    border: none;
+}
+
+/* LAYOUT */
+.wrapper { display: flex; height: calc(100vh - 140px); }
+
+.left {
+    width: 100%;
+    transition: 0.3s;
+    overflow: auto;
+}
+
+.left.shrink { width: 65%; }
+
+.right {
+    width: 0;
+    overflow: hidden;
+    transition: 0.3s;
+}
+
+.right.show {
+    width: 35%;
+    padding: 20px;
+}
+
+/* PROFILE */
+.profile {
+    height: 100%;
+    overflow-y: auto;
+    background: linear-gradient(145deg, #020617, #0f172a);
+    border: 1px solid rgba(34,211,238,0.3);
+    border-radius: 16px;
+    padding: 20px;
+}
+
+.stat-box {
+    display: flex;
+    justify-content: space-between;
+    padding: 14px;
+    margin: 8px 0;
+    background: rgba(255,255,255,0.05);
+    border-radius: 10px;
+}
+
+/* TABLE */
+.container {
+    margin: 20px;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid rgba(34,211,238,0.2);
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 16px;
+    text-align: center;
+}
+
+tr:hover { background: rgba(255,255,255,0.05); }
+
+.avatar {
+    width: 40px;
+    border-radius: 50%;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="header">
+    <div class="title">🏆 BẢNG XẾP HẠNG <span>TỔNG HỢP</span></div>
+    <div class="time-box">24/05/2025</div>
+</div>
+
+<div class="search-box">
+<input type="text" id="search" placeholder="Tìm player..." onkeyup="searchPlayer()">
+</div>
+
+<div class="wrapper">
+
+<div id="left" class="left">
+<div class="container">
+<table>
+<tr>
+<th>#</th>
+<th>Tên</th>
+<th>Power</th>
+</tr>
+
+<tr>
+<td>1</td>
+<td>
+<img class="avatar" src="https://api.dicebear.com/7.x/bottts/svg?seed=VICTORIUS">
+VICTORIUS
+</td>
+<td>129,567,489</td>
+</tr>
+
+</table>
+</div>
+</div>
+
+<div id="right" class="right">
+<div id="profile" class="profile"></div>
+</div>
+
+</div>
+
+<script>
+function searchPlayer(){
+    let input = document.getElementById("search").value.toLowerCase();
+    let right = document.getElementById("right");
+    let left = document.getElementById("left");
+    let profile = document.getElementById("profile");
+
+    if(input === "victorius"){
+        profile.innerHTML = `
+        <h2>VICTORIUS</h2>
+        <div class="stat-box"><span>ID</span><span>ID-0001</span></div>
+        <div class="stat-box"><span>Power</span><span>129M</span></div>
+        `;
+
+        right.classList.add("show");
+        left.classList.add("shrink");
+    } else {
+        right.classList.remove("show");
+        left.classList.remove("shrink");
+    }
+}
+</script>
+
+</body>
+</html>
