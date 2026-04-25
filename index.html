@@ -169,102 +169,87 @@ tr {
 
 <script>
 
-// ===== LINK GOOGLE SHEET =====
-const OLD = "https://docs.google.com/spreadsheets/d/1MJQSE3siwFWmQNdJmbbJ6RsilvcoxWTu-r6h-UdHugE/gviz/tq?tqx=out:json&gid=731741617";
-const NEW = "https://docs.google.com/spreadsheets/d/1MJQSE3siwFWmQNdJmbbJ6RsilvcoxWTu-r6h-UdHugE/gviz/tq?tqx=out:json&gid=371969335";
+const SHEET_BEFORE = "https://docs.google.com/spreadsheets/d/1MJQSE3siwFWmQNdJmbbJ6RsilvcoxWTu-r6h-UdHugE/gviz/tq?tqx=out:csv&gid=731741617";
+const SHEET_AFTER  = "https://docs.google.com/spreadsheets/d/1MJQSE3siwFWmQNdJmbbJ6RsilvcoxWTu-r6h-UdHugE/gviz/tq?tqx=out:csv&gid=371969335";
 
-// ===== LẤY DATA =====
-async function getData(url){
-    let res = await fetch(url);
-    let text = await res.text();
-    let json = JSON.parse(text.substring(47).slice(0,-2));
-    return json.table.rows;
-}
+let players = {};
 
-// ===== LOAD + SO SÁNH =====
-async function load(){
+async function loadData() {
 
-    let oldData = await getData(OLD);
-    let newData = await getData(NEW);
+    const before = await fetch(SHEET_BEFORE).then(r => r.text());
+    const after  = await fetch(SHEET_AFTER).then(r => r.text());
 
-    let oldMap = {};
+    const parse = (csv) => csv.split("\n").slice(1).map(r => r.split(","));
 
-    // map dữ liệu cũ theo ID
-    oldData.forEach(r=>{
-        let id = r.c[1]?.v;
-        oldMap[id] = r.c;
+    let beforeData = parse(before);
+    let afterData  = parse(after);
+
+    afterData.forEach(row => {
+
+        let name = row[1].toLowerCase();
+
+        players[name] = {
+            name: row[1],
+            id: row[2],
+            alliance: row[3],
+            kill: row[4],
+            power: row[5],
+            t1: row[6],
+            t2: row[7],
+            t3: row[8],
+            t4: row[9],
+            t5: row[10],
+            death: row[11]
+        };
+
     });
 
-    let tbody = document.getElementById("table-body");
-    tbody.innerHTML = "";
+    console.log("DATA LOADED:", players);
+}
 
-    newData.forEach((r,i)=>{
+loadData();
 
-        let c = r.c;
+function searchPlayer() {
+    let input = document.getElementById("search").value.toLowerCase();
+    let right = document.getElementById("right");
+    let left = document.getElementById("left");
+    let profile = document.getElementById("profile");
 
-        let name = c[0]?.v || "";
-        let id = c[1]?.v || "";
-        let alliance = c[2]?.v || "";
+    if (players[input]) {
 
-        let kill = Number(c[3]?.v || 0);
-        let power = Number(c[4]?.v || 0);
+        let p = players[input];
 
-        let t1 = c[5]?.v || "";
-        let t2 = c[6]?.v || "";
-        let t3 = c[7]?.v || "";
-        let t4 = c[8]?.v || "";
-        let t5 = c[9]?.v || "";
-        let death = c[10]?.v || "";
+        profile.innerHTML = `
+        <div class="profile-header">
+            <img src="https://api.dicebear.com/7.x/bottts/svg?seed=${p.name}" class="profile-avatar">
+            <h2>${p.name}</h2>
+            <div class="profile-level">Lv.??</div>
+            <h3>🏆 Rank</h3>
+        </div>
 
-        let old = oldMap[id];
+        <div class="profile-row"><span>🆔 ID</span><span>${p.id}</span></div>
+        <div class="profile-row"><span>🏰 Liên minh</span><span>${p.alliance}</span></div>
 
-        let kill_old = old ? Number(old[3]?.v || 0) : 0;
-        let power_old = old ? Number(old[4]?.v || 0) : 0;
+        <div class="profile-row kill"><span>⚔ Tổng</span><span>${p.kill}</span></div>
+        <div class="profile-row power"><span>⚡ Sức mạnh</span><span>${p.power}</span></div>
 
-        let kill_diff = kill - kill_old;
-        let power_diff = power - power_old;
+        <div class="profile-row t1"><span>T1</span><span>${p.t1}</span></div>
+        <div class="profile-row t2"><span>T2</span><span>${p.t2}</span></div>
+        <div class="profile-row t3"><span>T3</span><span>${p.t3}</span></div>
+        <div class="profile-row t4"><span>T4</span><span>${p.t4}</span></div>
+        <div class="profile-row t5"><span>T5</span><span>${p.t5}</span></div>
 
-        tbody.innerHTML += `
-        <tr>
-            <td>${i+1}</td>
-
-            <td>
-                <div class="player">
-                    <img src="https://api.dicebear.com/7.x/bottts/svg?seed=${name}" class="avatar">
-                    ${name}
-                </div>
-            </td>
-
-            <td>${id}</td>
-            <td>${alliance}</td>
-
-            <td class="kill">
-                ${kill.toLocaleString()}
-                <span class="diff">+${kill_diff.toLocaleString()}</span>
-            </td>
-
-            <td class="power">
-                ${power.toLocaleString()}
-                <span class="diff">+${power_diff.toLocaleString()}</span>
-            </td>
-
-            <td class="t1">${t1}</td>
-            <td class="t2">${t2}</td>
-            <td class="t3">${t3}</td>
-            <td class="t4">${t4}</td>
-            <td class="t5">${t5}</td>
-
-            <td class="death">${death}</td>
-        </tr>
+        <div class="profile-row death"><span>💀 Death</span><span>${p.death}</span></div>
         `;
-    });
+
+        right.classList.add("show");
+        left.classList.add("shrink");
+
+    } else {
+        right.classList.remove("show");
+        left.classList.remove("shrink");
+    }
 }
-
-// load lần đầu
-load();
-
-// auto update 5s
-setInterval(load, 5000);
 
 </script>
 
