@@ -1,8 +1,20 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# ✅ FULL WIDTH để không bị bó khung
+# ✅ FULL WIDTH
 st.set_page_config(layout="wide")
+
+# ✅ FIX STREAMLIT BÓ KHUNG
+st.markdown("""
+<style>
+.block-container {
+    max-width: 100% !important;
+    padding-left: 0 !important;
+    padding-right: 0 !important;
+}
+</style>
+""", unsafe_allow_html=True)
+
 
 html = """
 <!DOCTYPE html>
@@ -10,12 +22,12 @@ html = """
 <head>
 <meta charset="UTF-8">
 
-<!-- ✅ FIX ICON -->
+<!-- ✅ ICON FIX -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
-/* ===== FULL SCREEN FIX STREAMLIT ===== */
+/* ===== FULL SCREEN ===== */
 html, body {
     margin: 0;
     padding: 0;
@@ -23,14 +35,14 @@ html, body {
     height: 100%;
 }
 
-/* NỀN */
+/* ===== NỀN ===== */
 body {
     background: radial-gradient(circle at top, #020617, #000814);
     color: white;
     font-family: 'Segoe UI', sans-serif;
 }
 
-/* HEADER */
+/* ===== HEADER ===== */
 .header {
     display: flex;
     justify-content: space-between;
@@ -42,8 +54,11 @@ body {
 .title span { color: #22d3ee; }
 .subtitle { color: #94a3b8; }
 
-/* SEARCH */
-.search-box { padding: 0 30px; margin-bottom: 10px; }
+/* ===== SEARCH ===== */
+.search-box {
+    padding: 0 30px;
+    margin-bottom: 10px;
+}
 
 input {
     padding: 10px;
@@ -52,11 +67,11 @@ input {
     border: none;
 }
 
-/* LAYOUT */
+/* ===== LAYOUT ===== */
 .wrapper {
     display: flex;
-    width: 100%;
-    height: calc(100vh - 120px);
+    width: 100vw;
+    height: calc(100vh - 100px);
 }
 
 .left {
@@ -80,7 +95,7 @@ input {
     padding: 20px;
 }
 
-/* TABLE */
+/* ===== TABLE ===== */
 .container {
     margin: 20px;
     border-radius: 16px;
@@ -117,14 +132,7 @@ tr:hover {
     background: rgba(255,255,255,0.04);
 }
 
-/* PLAYER */
-.player {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* COLORS */
+/* ===== COLORS ===== */
 .kill { color: #facc15; }
 .power { color: #22d3ee; }
 .death { color: #ef4444; }
@@ -135,7 +143,7 @@ tr:hover {
 .t4 { color: #22c55e; }
 .t5 { color: #f59e0b; }
 
-/* PROFILE */
+/* ===== PROFILE ===== */
 .profile {
     background: linear-gradient(145deg, #020617, #0f172a);
     padding: 20px;
@@ -155,7 +163,7 @@ tr:hover {
 
 <div class="header">
     <div>
-        <div class="title"><i class="fa-solid fa-trophy"></i> BẢNG XẾP HẠNG <span>TỔNG HỢP</span></div>
+        <div class="title">🏆 BẢNG XẾP HẠNG <span>TỔNG HỢP</span></div>
         <div class="subtitle">So sánh dữ liệu người chơi</div>
     </div>
 </div>
@@ -172,18 +180,18 @@ tr:hover {
 <table>
 <thead>
 <tr>
-<th><i class="fa-solid fa-crown"></i></th>
+<th>#</th>
 <th>Tên</th>
 <th>ID</th>
 <th>Liên minh</th>
-<th><i class="fa-solid fa-sword"></i></th>
-<th><i class="fa-solid fa-bolt"></i></th>
+<th>Kill</th>
+<th>Power</th>
 <th>T1</th>
 <th>T2</th>
 <th>T3</th>
 <th>T4</th>
 <th>T5</th>
-<th><i class="fa-solid fa-skull"></i></th>
+<th>Death</th>
 </tr>
 </thead>
 
@@ -242,7 +250,6 @@ function searchPlayer() {
 
         <div class="profile-row death"><span>💀 Death</span><span>12K</span></div>
         `;
-
         right.classList.add("show");
         left.classList.add("shrink");
     } else {
@@ -257,5 +264,4 @@ function searchPlayer() {
 </html>
 """
 
-# ✅ FIX KHUNG + SCROLL
 components.html(html, height=900, scrolling=True)
